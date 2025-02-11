@@ -15,6 +15,16 @@ export const TableClient = () => {
         setClients(data)
     }
 
+    const handleDelete = async (id) => {
+
+        const url = `${baseUrl}${endPoint}/${id}`
+        const result = await fetch(url, {
+            method: "DELETE"
+        })
+    
+        getClients()
+    }
+
     useEffect(() => {
         getClients()
     }, [])
@@ -28,6 +38,7 @@ export const TableClient = () => {
                         <th>Id</th>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,6 +48,9 @@ export const TableClient = () => {
                                 <td>{item.client_id}</td>
                                 <td>{item.client_name}</td>
                                 <td>{item.email}</td>
+                                <td> <button className='btn btn-warning' onClick={ ()=>{
+                                    handleDelete(item.client_id)
+                                }  } >Delete</button></td>
                             </tr>
                         ))
                     }
